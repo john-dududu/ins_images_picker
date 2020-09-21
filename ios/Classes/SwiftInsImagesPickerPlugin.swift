@@ -20,6 +20,7 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
         if (call.method == "pickerImages") {
             let arguments = call.arguments as! Dictionary<String, AnyObject>
             let maxImages = arguments["maxImages"] as! Int
+            let quality = arguments["quality"] as! Double
             
             self.images = []
             var config = YPImagePickerConfiguration()
@@ -51,7 +52,7 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                 var results = [NSDictionary]();
                 for image in self!.images {
                     results.append([
-                        "path": self!.saveToFile(image: image),
+                        "path": self!.saveToFile(image: image, quality: CGFloat(quality)),
                     ]);
                 }
                 
@@ -63,11 +64,11 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
         
     }
     
-    private func saveToFile(image: UIImage) -> Any {
+    private func saveToFile(image: UIImage, quality: CGFloat) -> Any {
         
         
         
-        guard let data = image.jpegData(compressionQuality: 1.0) else {
+        guard let data = image.jpegData(compressionQuality: quality) else {
             return FlutterError(code: "image_encoding_error", message: "Could not read image", details: nil)
         }
         let tempDir = NSTemporaryDirectory()

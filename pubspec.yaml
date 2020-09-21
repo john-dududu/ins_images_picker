@@ -1,8 +1,8 @@
 name: ins_images_picker
-description: image picker like ins
+description: A new flutter plugin project.
 version: 0.0.1
-author: zzy
-homepage: https://github.com/john-dududu/ins_images_picker
+author:
+homepage:
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

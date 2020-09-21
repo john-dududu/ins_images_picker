@@ -21,7 +21,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   void showImagePicker() async {
-    List<File> images = await InsImagesPicker.showImagePicker(maxImages: 3);
+    List<File> images =
+        await InsImagesPicker.showImagePicker(maxImages: 3, quality: 0.8);
     if (images != null && images.isNotEmpty) {
       images.forEach((element) {
         _images.add(element);

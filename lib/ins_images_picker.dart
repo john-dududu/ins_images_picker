@@ -8,10 +8,11 @@ class InsImagesPicker {
   static const MethodChannel _channel =
       const MethodChannel('ins_images_picker');
 
-  static Future<List<File>> showImagePicker({@required int maxImages}) async {
+  static Future<List<File>> showImagePicker(
+      {@required int maxImages, double quality}) async {
     try {
-      final List<dynamic> images = await _channel.invokeMethod(
-          'pickerImages', <String, dynamic>{"maxImages": maxImages});
+      final List<dynamic> images = await _channel.invokeMethod('pickerImages',
+          <String, dynamic>{"maxImages": maxImages, "quality": quality});
       return images.map((f) {
         return File(f["path"]);
       }).toList();
