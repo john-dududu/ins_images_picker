@@ -7,6 +7,7 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
 
     var picker: YPImagePicker?
     private  var images: [UIImage] = []
+    private  var videos: [String] = []
     var imagesResult: FlutterResult?
 
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -24,6 +25,7 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
             let quality = arguments["quality"] as! Double
 
             self.images = []
+            self.videos = []
             var config = YPImagePickerConfiguration()
             config.library.maxNumberOfItems = maxImages
             config.showsPhotoFilters = false
@@ -40,9 +42,10 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
             config.library.isSquareByDefault = false
             config.albumName = "buyer"
             picker = YPImagePicker(configuration: config)
-            
+
             picker!.didFinishPicking { [weak self] items, cancelled in
-                
+                var results = [NSDictionary]();
+
                 if !cancelled {
                     for item in items {
                         switch item {
@@ -52,13 +55,17 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                             } else {
                                 self?.images.append(photo.originalImage)
                             }
-                        case .video(let _):
+                        case .video(let video):
+                            self?.videos.append(video.url.path)
+
+                            results.append([
+                                "path": video.url.path,
+                            ]);
                             break
                         }
                     }
                 } else { }
-                
-                var results = [NSDictionary]();
+
                 for image in self!.images {
                     results.append([
                         "path": self!.saveToFile(image: image, quality: CGFloat(quality)),
