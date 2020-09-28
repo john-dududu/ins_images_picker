@@ -1,6 +1,6 @@
 PODS:
   - Flutter (1.0.0)
-  - ins_images_picker (0.0.1):
+  - ins_images_picker (0.0.2):
     - Flutter
     - YPImagePicker
   - PryntTrimmerView (4.0.2)
@@ -27,7 +27,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  ins_images_picker: 0dfc9b24aa59f788ba9b15a6795f482326b6a277
+  ins_images_picker: 808dfc7aedbdf920ee081f7d9e02ce180e0b1d96
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
