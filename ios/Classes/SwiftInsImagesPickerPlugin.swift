@@ -29,12 +29,13 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
             var config = YPImagePickerConfiguration()
             config.library.maxNumberOfItems = maxImages
             config.showsPhotoFilters = false
-            if(mediaType == 0){
-                config.screens = [.library, .photo]
+            if(mediaType == 0) {
+                config.screens = [.library]
                 config.showsPhotoFilters = true
-
+                config.showsCrop = .rectangle(ratio: 1.0)
+                config.library.mediaType = .photo
             } else{
-                config.screens = [.library, .video]
+                config.screens = [.library]
                 config.showsVideoTrimmer = true
                 config.library.mediaType = .video
             }
