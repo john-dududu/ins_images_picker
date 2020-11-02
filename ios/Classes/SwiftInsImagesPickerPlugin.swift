@@ -72,10 +72,16 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                     ]);
                 }
                 
-                self!.imagesResult!(results)
+                self?.imagesResult?(results)
                 self?.picker?.dismiss(animated: true, completion: nil)
             }
-            UIApplication.shared.keyWindow?.rootViewController?.present(picker!, animated: true, completion: nil)
+            guard let picker = picker else { return }
+            if let tabBarController = UIApplication.shared.keyWindow?.rootViewController as? UITabBarController,
+               let flutterController = tabBarController.presentedViewController {
+                flutterController.present(picker, animated: true, completion: nil)
+            } else {
+                UIApplication.shared.keyWindow?.rootViewController?.present(picker, animated: true, completion: nil)
+            }
         }
         
     }
