@@ -32,7 +32,7 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
             if(mediaType == 0) {
                 config.screens = [.library]
                 config.showsPhotoFilters = true
-                config.showsCrop = .rectangle(ratio: 1.0)
+                config.showsCrop = .rectangle(ratios: [.oneToOne, .fourToThree, .sixteenToNine])
                 config.library.mediaType = .photo
             } else{
                 config.screens = [.library]
