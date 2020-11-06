@@ -16,8 +16,8 @@ class InsImagesPicker {
     @required int mediaType,
     @required List<String> ratios,
     @required String appName,
-    @required String navigationBarColor,
-    @required String navigationBarItemColor,
+    @required Color navigationBarColor,
+    @required Color navigationBarItemColor,
     double quality = 1.0
   }) async {
     try {
@@ -27,8 +27,8 @@ class InsImagesPicker {
         "mediaType": mediaType,
         "ratios": ratios,
         "appName": appName,
-        "navigationBarColor": navigationBarColor,
-        "navigationBarItemColor": navigationBarItemColor,
+        "navigationBarColor": '#${navigationBarColor.value.toRadixString(16)}',
+        "navigationBarItemColor": '#${navigationBarItemColor.value.toRadixString(16)}',
         "quality": quality
       });
       return images.map((f) {
