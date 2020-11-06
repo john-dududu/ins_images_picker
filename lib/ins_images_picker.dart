@@ -14,14 +14,22 @@ class InsImagesPicker {
   static Future<List<File>> showPicker({
     @required int maxImages,
     @required int mediaType,
-    double quality = 1.0,
+    @required List<String> ratios,
+    @required String appName,
+    @required String navigationBarColor,
+    @required String navigationBarItemColor,
+    double quality = 1.0
   }) async {
     try {
       final List<dynamic> images = await _channel.invokeMethod(
           'pickerImages', <String, dynamic>{
         "maxImages": maxImages,
-        "quality": quality,
-        "mediaType": mediaType
+        "mediaType": mediaType,
+        "ratios": ratios,
+        "appName": appName,
+        "navigationBarColor": navigationBarColor,
+        "navigationBarItemColor": navigationBarItemColor,
+        "quality": quality
       });
       return images.map((f) {
         return File(f["path"]);

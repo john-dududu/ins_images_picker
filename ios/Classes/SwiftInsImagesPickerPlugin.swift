@@ -17,34 +17,38 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-        self.imagesResult = result
-        if (call.method == "pickerImages") {
-            let arguments = call.arguments as! Dictionary<String, AnyObject>
-            let maxImages = arguments["maxImages"] as! Int
-            let mediaType = arguments["mediaType"] as! Int
-            let quality = arguments["quality"] as! Double
-
-            self.images = []
-            self.videos = []
+        imagesResult = result
+        if (call.method == "pickerImages"), let arguments = call.arguments as? Dictionary<String, AnyObject> {
+            guard let mediaType = arguments["mediaType"] as? Int, let maxNumberOfItems = arguments["maxImages"] as? Int,
+                  let ratioValues = arguments["ratios"] as? [String], let appName = arguments["appName"] as? String,
+                  let navigationBarColorHexValue = arguments["navigationBarColor"] as? String,
+                  let navigationBarItemColorHexValue = arguments["navigationBarItemColor"] as? String,
+                  let quality = arguments["quality"] as? Double else { return }
+            images = []
+            videos = []
             var config = YPImagePickerConfiguration()
-            config.library.maxNumberOfItems = maxImages
+            config.library.maxNumberOfItems = maxNumberOfItems
             config.showsPhotoFilters = false
+            config.hidesStatusBar = false
+            config.colors.barTintColor = UIColor(hexString: navigationBarColorHexValue)
+            config.colors.tintColor = UIColor(hexString: navigationBarItemColorHexValue)
             if(mediaType == 0) {
                 config.screens = [.library]
                 config.showsPhotoFilters = true
-                config.showsCrop = .rectangle(ratios: [.oneToOne, .fourToThree, .sixteenToNine])
+                config.showsCrop = .rectangle(ratios: ratioValues.compactMap{Ratio(rawValue: $0)})
                 config.library.mediaType = .photo
-            } else{
+            } else {
                 config.screens = [.library]
                 config.showsVideoTrimmer = true
                 config.library.mediaType = .video
             }
             config.startOnScreen = .library
             config.library.isSquareByDefault = false
-            config.albumName = "buyer"
+            config.albumName = "\(appName) Images"
             picker = YPImagePicker(configuration: config)
 
             picker!.didFinishPicking { [weak self] items, cancelled in
+                guard let self = self else { return }
                 var results = [NSDictionary]();
 
                 if !cancelled {
@@ -52,12 +56,12 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                         switch item {
                         case .photo(let photo):
                             if photo.modifiedImage != nil {
-                                self?.images.append(photo.modifiedImage ?? UIImage())
+                                self.images.append(photo.modifiedImage ?? UIImage())
                             } else {
-                                self?.images.append(photo.originalImage)
+                                self.images.append(photo.originalImage)
                             }
                         case .video(let video):
-                            self?.videos.append(video.url.path)
+                            self.videos.append(video.url.path)
 
                             results.append([
                                 "path": video.url.path,
@@ -65,16 +69,16 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                             break
                         }
                     }
-                } else { }
+                }
 
-                for image in self!.images {
+                for image in self.images {
                     results.append([
-                        "path": self!.saveToFile(image: image, quality: CGFloat(quality)),
+                        "path": self.saveToFile(image: image, quality: CGFloat(quality)),
                     ]);
                 }
                 
-                self?.imagesResult?(results)
-                self?.picker?.dismiss(animated: true, completion: nil)
+                self.imagesResult?(results)
+                self.picker?.dismiss(animated: true, completion: nil)
             }
             guard let picker = picker else { return }
             if let tabBarController = UIApplication.shared.keyWindow?.rootViewController as? UITabBarController,
@@ -84,13 +88,9 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                 UIApplication.shared.keyWindow?.rootViewController?.present(picker, animated: true, completion: nil)
             }
         }
-        
     }
     
     private func saveToFile(image: UIImage, quality: CGFloat) -> Any {
-        
-        
-        
         guard let data = image.jpegData(compressionQuality: quality) else {
             return FlutterError(code: "image_encoding_error", message: "Could not read image", details: nil)
         }
