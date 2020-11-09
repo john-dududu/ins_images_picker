@@ -81,9 +81,13 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                 self.picker?.dismiss(animated: true, completion: nil)
             }
             guard let picker = picker else { return }
-            if let tabBarController = UIApplication.shared.keyWindow?.rootViewController as? UITabBarController,
-               let flutterController = tabBarController.presentedViewController {
-                flutterController.present(picker, animated: true, completion: nil)
+            if let tabBarController = UIApplication.shared.keyWindow?.rootViewController as? UITabBarController {
+                if let navigation = tabBarController.selectedViewController,
+                   let flutterController = navigation.presentedViewController {
+                    flutterController.present(picker, animated: true, completion: nil)
+                } else if let flutterController = tabBarController.presentedViewController {
+                    flutterController.present(picker, animated: true, completion: nil)
+                }
             } else {
                 UIApplication.shared.keyWindow?.rootViewController?.present(picker, animated: true, completion: nil)
             }
