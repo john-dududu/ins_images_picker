@@ -1,7 +1,7 @@
 
 import Flutter
 import UIKit
-import YPImagePicker
+import CTYPImagePicker
 
 public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
 
