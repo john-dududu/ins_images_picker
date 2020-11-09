@@ -4,36 +4,48 @@ import UIKit
 import YPImagePicker
 
 public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
-    
+
     var picker: YPImagePicker?
     private  var images: [UIImage] = []
+    private  var videos: [String] = []
     var imagesResult: FlutterResult?
-    
+
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "ins_images_picker", binaryMessenger: registrar.messenger())
         let instance = SwiftInsImagesPickerPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
-    
+
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         self.imagesResult = result
         if (call.method == "pickerImages") {
             let arguments = call.arguments as! Dictionary<String, AnyObject>
             let maxImages = arguments["maxImages"] as! Int
+            let mediaType = arguments["mediaType"] as! Int
             let quality = arguments["quality"] as! Double
-            
+
             self.images = []
+            self.videos = []
             var config = YPImagePickerConfiguration()
             config.library.maxNumberOfItems = maxImages
             config.showsPhotoFilters = false
-            config.screens = [.library, .photo]
+            if(mediaType == 0){
+                config.screens = [.library, .photo]
+                config.showsPhotoFilters = true
+
+            } else{
+                config.screens = [.library, .video]
+                config.showsVideoTrimmer = true
+                config.library.mediaType = .video
+            }
             config.startOnScreen = .library
             config.library.isSquareByDefault = false
             config.albumName = "buyer"
             picker = YPImagePicker(configuration: config)
-            
+
             picker!.didFinishPicking { [weak self] items, cancelled in
-                
+                var results = [NSDictionary]();
+
                 if !cancelled {
                     for item in items {
                         switch item {
@@ -43,13 +55,17 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                             } else {
                                 self?.images.append(photo.originalImage)
                             }
-                        case .video(let _):
+                        case .video(let video):
+                            self?.videos.append(video.url.path)
+
+                            results.append([
+                                "path": video.url.path,
+                            ]);
                             break
                         }
                     }
                 } else { }
-                
-                var results = [NSDictionary]();
+
                 for image in self!.images {
                     results.append([
                         "path": self!.saveToFile(image: image, quality: CGFloat(quality)),
