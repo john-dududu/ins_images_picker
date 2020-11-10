@@ -29,6 +29,7 @@ class _MyAppState extends State<MyApp> {
         appName: "Influencer",
         navigationBarColor: Colors.blue,
         navigationBarItemColor: Colors.white,
+        statusBarStyleValue: 1,
         quality: 0.8);
     if (images != null && images.isNotEmpty) {
       images.forEach((element) {

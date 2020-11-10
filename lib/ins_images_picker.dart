@@ -18,6 +18,7 @@ class InsImagesPicker {
     @required String appName,
     @required Color navigationBarColor,
     @required Color navigationBarItemColor,
+    @required int statusBarStyleValue,
     double quality = 1.0
   }) async {
     try {
@@ -29,6 +30,7 @@ class InsImagesPicker {
         "appName": appName,
         "navigationBarColor": '#${navigationBarColor.value.toRadixString(16)}',
         "navigationBarItemColor": '#${navigationBarItemColor.value.toRadixString(16)}',
+        "statusBarStyleValue": statusBarStyleValue,
         "quality": quality
       });
       return images.map((f) {

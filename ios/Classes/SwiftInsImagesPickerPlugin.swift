@@ -23,6 +23,7 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                   let ratioValues = arguments["ratios"] as? [String], let appName = arguments["appName"] as? String,
                   let navigationBarColorHexValue = arguments["navigationBarColor"] as? String,
                   let navigationBarItemColorHexValue = arguments["navigationBarItemColor"] as? String,
+                  let statusBarStyleValue = arguments["statusBarStyleValue"] as? Int,
                   let quality = arguments["quality"] as? Double else { return }
             images = []
             videos = []
@@ -32,6 +33,7 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
             config.hidesStatusBar = false
             config.colors.barTintColor = UIColor(hexString: navigationBarColorHexValue)
             config.colors.tintColor = UIColor(hexString: navigationBarItemColorHexValue)
+            config.preferredStatusBarStyle = UIStatusBarStyle(statusBarStyleValue: statusBarStyleValue)
             if(mediaType == 0) {
                 config.screens = [.library]
                 config.showsPhotoFilters = true
@@ -105,6 +107,24 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
             return filePath
         } else {
             return FlutterError(code: "image_save_failed", message: "Could not save image to disk", details: nil)
+        }
+    }
+}
+
+extension UIStatusBarStyle {
+    
+    public init(statusBarStyleValue: Int) {
+        switch statusBarStyleValue {
+        case 0:
+            self = .lightContent
+        case 1:
+            if #available(iOS 13, *) {
+                self = .darkContent
+            } else {
+                self = .default
+            }
+        default:
+            self = .default
         }
     }
 }
