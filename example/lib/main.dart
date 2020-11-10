@@ -24,7 +24,13 @@ class _MyAppState extends State<MyApp> {
 
   void showImagePicker() async {
     List<File> images = await InsImagesPicker.showPicker(
-        maxImages: 3, quality: 0.8, mediaType: 0);
+        maxImages: 1, mediaType: 0,
+        ratios: ['1:1', '4:3', '16:9'],
+        appName: "Influencer",
+        navigationBarColor: Colors.blue,
+        navigationBarItemColor: Colors.white,
+        statusBarStyleValue: 1,
+        quality: 0.8);
     if (images != null && images.isNotEmpty) {
       images.forEach((element) {
         _images.add(element);

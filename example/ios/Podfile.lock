@@ -15,12 +15,12 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - ins_images_picker (from `.symlinks/plugins/ins_images_picker/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
+  - YPImagePicker (from `/Users/Marko/Documents/Projects/YPImagePicker`)
 
 SPEC REPOS:
   trunk:
     - PryntTrimmerView
     - SteviaLayout
-    - YPImagePicker
 
 EXTERNAL SOURCES:
   Flutter:
@@ -29,15 +29,17 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/ins_images_picker/ios"
   video_player:
     :path: ".symlinks/plugins/video_player/ios"
+  YPImagePicker:
+    :path: "/Users/Marko/Documents/Projects/YPImagePicker"
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  ins_images_picker: 808dfc7aedbdf920ee081f7d9e02ce180e0b1d96
+  ins_images_picker: 117174d11cb49825886e85684a3bc5a136ee3f53
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
   YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: cf4d5fca2d1810c6ec437c0d91de8545cd54b6a4
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.3
