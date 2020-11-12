@@ -24,13 +24,15 @@ class _MyAppState extends State<MyApp> {
 
   void showImagePicker() async {
     List<File> images = await InsImagesPicker.showPicker(
-        maxImages: 1, mediaType: 0,
-        ratios: ['1:1', '4:3', '16:9'],
+        maxImages: 1,
+        mediaType: 0,
+        ratios: ['1:1', '3:4', '16:9'],
         appName: "Influencer",
         navigationBarColor: Colors.blue,
         navigationBarItemColor: Colors.white,
         statusBarStyleValue: 1,
-        quality: 0.8);
+        quality: 0.8,
+        trimVideo: false);
     if (images != null && images.isNotEmpty) {
       images.forEach((element) {
         _images.add(element);
@@ -57,57 +59,57 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.green,
-        appBar: AppBar(
-          title: const Text(
-            'Picker Example App',
-            style: TextStyle(fontWeight: FontWeight.w400),
-          ),
+        home: Scaffold(
+      backgroundColor: Colors.green,
+      appBar: AppBar(
+        title: const Text(
+          'Picker Example App',
+          style: TextStyle(fontWeight: FontWeight.w400),
         ),
-        body: Container(child: Column(
-          children: [
-            MaterialButton(
-              onPressed: showImagePicker,
-              child: Text("IMAGE",
-                  style: TextStyle(
-                    color: Colors.white,
-                  )),
-              color: Colors.blue,
-            ),
-            MaterialButton(
-              onPressed: showVideoPicker,
-              child: Text("VIDEO",
-                  style: TextStyle(
-                    color: Colors.white,
-                  )),
-              color: Colors.red,
-            ),
-
-            ListView.builder(
-                itemCount: _images?.length,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: 20),
-                    child: Image.file(
-                      _images.elementAt(index),
-                      height: 100,
-                      width: 100,
-                    ),
-                  );
-                }),
-            ListView.builder(
-                itemCount: _videos?.length,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: 20),
-                    child: VideoApp(_videos.elementAt(index)),
-                  );
-                })
-          ],
-        )),)
-    );
+      ),
+      body: Container(
+          child: Column(
+        children: [
+          MaterialButton(
+            onPressed: showImagePicker,
+            child: Text("IMAGE",
+                style: TextStyle(
+                  color: Colors.white,
+                )),
+            color: Colors.blue,
+          ),
+          MaterialButton(
+            onPressed: showVideoPicker,
+            child: Text("VIDEO",
+                style: TextStyle(
+                  color: Colors.white,
+                )),
+            color: Colors.red,
+          ),
+          ListView.builder(
+              itemCount: _images?.length,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: Image.file(
+                    _images.elementAt(index),
+                    height: 100,
+                    width: 100,
+                  ),
+                );
+              }),
+          ListView.builder(
+              itemCount: _videos?.length,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: EdgeInsets.only(bottom: 20),
+                  child: VideoApp(_videos.elementAt(index)),
+                );
+              })
+        ],
+      )),
+    ));
   }
 }

@@ -19,7 +19,8 @@ class InsImagesPicker {
     @required Color navigationBarColor,
     @required Color navigationBarItemColor,
     @required int statusBarStyleValue,
-    double quality = 1.0
+    double quality = 1.0,
+    bool trimVideo = false
   }) async {
     try {
       final List<dynamic> images = await _channel.invokeMethod(
@@ -28,6 +29,7 @@ class InsImagesPicker {
         "mediaType": mediaType,
         "ratios": ratios,
         "appName": appName,
+        "showTrim": trimVideo,
         "navigationBarColor": '#${navigationBarColor.value.toRadixString(16)}',
         "navigationBarItemColor": '#${navigationBarItemColor.value.toRadixString(16)}',
         "statusBarStyleValue": statusBarStyleValue,
