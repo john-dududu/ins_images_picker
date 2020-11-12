@@ -24,6 +24,7 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                   let navigationBarColorHexValue = arguments["navigationBarColor"] as? String,
                   let navigationBarItemColorHexValue = arguments["navigationBarItemColor"] as? String,
                   let statusBarStyleValue = arguments["statusBarStyleValue"] as? Int,
+                  let showTrim = arguments["showTrim"] as? Bool,
                   let quality = arguments["quality"] as? Double else { return }
             images = []
             videos = []
@@ -41,7 +42,7 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                 config.library.mediaType = .photo
             } else {
                 config.screens = [.library]
-                config.showsVideoTrimmer = true
+                config.showsVideoTrimmer = showTrim
                 config.library.mediaType = .video
             }
             config.startOnScreen = .library
