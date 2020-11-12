@@ -20,7 +20,8 @@ class InsImagesPicker {
     @required Color navigationBarItemColor,
     @required int statusBarStyleValue,
     double quality = 1.0,
-    bool trimVideo = false
+    bool trimVideo = false,
+    double maxVideoDurationSeconds = 1800,
   }) async {
     try {
       final List<dynamic> images = await _channel.invokeMethod(
@@ -33,7 +34,8 @@ class InsImagesPicker {
         "navigationBarColor": '#${navigationBarColor.value.toRadixString(16)}',
         "navigationBarItemColor": '#${navigationBarItemColor.value.toRadixString(16)}',
         "statusBarStyleValue": statusBarStyleValue,
-        "quality": quality
+        "quality": quality,
+        "maxVideoDurationSeconds": maxVideoDurationSeconds
       });
       return images.map((f) {
         return File(f["path"]);
