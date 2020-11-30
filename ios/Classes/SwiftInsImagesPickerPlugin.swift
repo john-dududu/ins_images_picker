@@ -1,5 +1,6 @@
 
 import Flutter
+import AVFoundation
 import UIKit
 import CTYPImagePicker
 
