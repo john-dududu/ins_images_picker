@@ -47,7 +47,7 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                 config.showsVideoTrimmer = showTrim
                 config.library.mediaType = .video
                 config.video.libraryTimeLimit = videoMaxDuration
-                config.video.compression = AVAssetExportPresetLowQuality
+                config.video.compression = AVAssetExportPresetMediumQuality
             }
             config.startOnScreen = .library
             config.library.isSquareByDefault = false
