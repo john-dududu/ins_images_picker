@@ -1,5 +1,6 @@
 
 import Flutter
+import AVFoundation
 import UIKit
 import CTYPImagePicker
 
@@ -46,6 +47,12 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                 config.showsVideoTrimmer = showTrim
                 config.library.mediaType = .video
                 config.video.libraryTimeLimit = videoMaxDuration
+
+                if #available(iOS 13.0, *) {
+                     config.video.compression = AVAssetExportPresetHEVC1920x1080WithAlpha
+                    } else {
+                     config.video.compression =  AVAssetExportPreset1280x720
+                    }
             }
             config.startOnScreen = .library
             config.library.isSquareByDefault = false
