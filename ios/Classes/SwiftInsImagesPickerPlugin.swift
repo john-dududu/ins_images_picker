@@ -51,7 +51,7 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                 if #available(iOS 13.0, *) {
                      config.video.compression = AVAssetExportPresetHEVC1920x1080WithAlpha
                     } else {
-                     config.video.compression =  AVAssetExportPresetMediumQuality
+                     config.video.compression =  AVAssetExportPreset1280x720
                     }
             }
             config.startOnScreen = .library
