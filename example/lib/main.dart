@@ -30,8 +30,10 @@ class _MyAppState extends State<MyApp> {
         appName: "Influencer",
         navigationBarColor: Colors.blue,
         navigationBarItemColor: Colors.white,
+        backgroundColor: Colors.grey,
         statusBarStyleValue: 1,
         quality: 0.8,
+        videoQuality: 'AVAssetExportPreset1280x720',
         trimVideo: false);
     if (images != null && images.isNotEmpty) {
       images.forEach((element) {
@@ -45,7 +47,17 @@ class _MyAppState extends State<MyApp> {
 
   void showVideoPicker() async {
     List<File> videos = await InsImagesPicker.showPicker(
-        maxImages: 1, quality: 0.8, mediaType: 1);
+        maxImages: 1,
+        mediaType: 1,
+        ratios: ['1:1', '3:4', '16:9'],
+        appName: "Influencer",
+        navigationBarColor: Colors.blue,
+        navigationBarItemColor: Colors.white,
+        backgroundColor: Colors.grey,
+        statusBarStyleValue: 1,
+        quality: 0.8,
+        videoQuality: 'AVAssetExportPreset1920x1080',
+        trimVideo: true);
     if (videos != null && videos.isNotEmpty) {
       videos.forEach((element) {
         _videos.add(element);

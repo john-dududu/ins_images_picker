@@ -18,8 +18,10 @@ class InsImagesPicker {
     @required String appName,
     @required Color navigationBarColor,
     @required Color navigationBarItemColor,
+    @required Color backgroundColor,
     @required int statusBarStyleValue,
     double quality = 1.0,
+    String videoQuality = 'AVAssetExportPreset1280x720',
     bool trimVideo = false,
     double maxVideoDurationSeconds = 1800,
   }) async {
@@ -33,8 +35,10 @@ class InsImagesPicker {
         "showTrim": trimVideo,
         "navigationBarColor": '#${navigationBarColor.value.toRadixString(16)}',
         "navigationBarItemColor": '#${navigationBarItemColor.value.toRadixString(16)}',
+        "backgroundColor": '#${backgroundColor.value.toRadixString(16)}',
         "statusBarStyleValue": statusBarStyleValue,
         "quality": quality,
+        "videoQuality": videoQuality,
         "maxVideoDurationSeconds": maxVideoDurationSeconds
       });
       return images.map((f) {

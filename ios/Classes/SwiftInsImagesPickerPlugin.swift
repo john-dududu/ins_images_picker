@@ -24,32 +24,41 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                   let ratioValues = arguments["ratios"] as? [String], let appName = arguments["appName"] as? String,
                   let navigationBarColorHexValue = arguments["navigationBarColor"] as? String,
                   let navigationBarItemColorHexValue = arguments["navigationBarItemColor"] as? String,
+                  let backgroundColorHexValue = arguments["backgroundColor"] as? String,
                   let statusBarStyleValue = arguments["statusBarStyleValue"] as? Int,
                   let showTrim = arguments["showTrim"] as? Bool,
                   let quality = arguments["quality"] as? Double,
+                  let videoQuality = arguments["videoQuality"] as? String,
                   let videoMaxDuration = arguments["maxVideoDurationSeconds"] as? Double else { return }
             images = []
             videos = []
             var config = YPImagePickerConfiguration()
             config.library.maxNumberOfItems = maxNumberOfItems
-            config.showsPhotoFilters = false
+            // Status bar config
             config.hidesStatusBar = false
+            config.showsPhotoFilters = false
+            config.preferredStatusBarStyle = UIStatusBarStyle(statusBarStyleValue: statusBarStyleValue)
+            // Colors config
             config.colors.barTintColor = UIColor(hexString: navigationBarColorHexValue)
             config.colors.tintColor = UIColor(hexString: navigationBarItemColorHexValue)
-            config.preferredStatusBarStyle = UIStatusBarStyle(statusBarStyleValue: statusBarStyleValue)
+            config.colors.photoVideoScreenBackgroundColor = UIColor(hexString: backgroundColorHexValue)
+            config.colors.libraryScreenBackgroundColor = UIColor(hexString: backgroundColorHexValue)
+            config.colors.safeAreaBackgroundColor = UIColor(hexString: backgroundColorHexValue)
+            config.colors.assetViewBackgroundColor = UIColor(hexString: backgroundColorHexValue)
+            config.colors.filterBackgroundColor = UIColor(hexString: backgroundColorHexValue)
+            config.colors.selectionsBackgroundColor = UIColor(hexString: backgroundColorHexValue)
+
             if(mediaType == 0) {
                 config.screens = [.library]
                 config.showsPhotoFilters = true
-                config.showsCrop = .rectangle(ratios: ratioValues.compactMap{Ratio(rawValue: $0)})
+                config.showsCrop = .rectangle(ratios: ratioValues.compactMap{MantisRatio(ratioStringValue: $0)})
                 config.library.mediaType = .photo
             } else {
                 config.screens = [.library]
                 config.showsVideoTrimmer = showTrim
                 config.library.mediaType = .video
                 config.video.libraryTimeLimit = videoMaxDuration
-
-                config.video.compression = AVAssetExportPreset1280x720
-
+                config.video.compression = videoQuality
             }
             config.startOnScreen = .library
             config.library.isSquareByDefault = false
