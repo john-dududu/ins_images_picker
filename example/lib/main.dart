@@ -22,10 +22,56 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
+  void showPhotoCamera() async {
+    List<File> images = await InsImagesPicker.showPicker(
+        maxImages: 1,
+        screenType: 0,
+        ratios: ['1:1', '3:4', '16:9'],
+        appName: "Influencer",
+        navigationBarColor: Colors.blue,
+        navigationBarItemColor: Colors.white,
+        backgroundColor: Colors.grey,
+        statusBarStyleValue: 1,
+        quality: 0.8,
+        videoQuality: 'AVAssetExportPreset1280x720',
+        trimVideo: false);
+    if (images != null && images.isNotEmpty) {
+      images.forEach((element) {
+        _images.add(element);
+      });
+      setState(() {});
+    } else {
+      print(images);
+    }
+  }
+
+  void showVideoCamera() async {
+    List<File> images = await InsImagesPicker.showPicker(
+        maxImages: 1,
+        screenType: 1,
+        ratios: ['1:1', '3:4', '16:9'],
+        appName: "Influencer",
+        navigationBarColor: Colors.blue,
+        navigationBarItemColor: Colors.white,
+        backgroundColor: Colors.grey,
+        statusBarStyleValue: 1,
+        quality: 0.8,
+        videoQuality: 'AVAssetExportPreset1280x720',
+        trimVideo: true);
+    if (images != null && images.isNotEmpty) {
+      images.forEach((element) {
+        _images.add(element);
+      });
+      setState(() {});
+    } else {
+      print(images);
+    }
+  }
+
   void showImagePicker() async {
     List<File> images = await InsImagesPicker.showPicker(
         maxImages: 1,
-        mediaType: 0,
+        screenType: 2,
         ratios: ['1:1', '3:4', '16:9'],
         appName: "Influencer",
         navigationBarColor: Colors.blue,
@@ -48,7 +94,7 @@ class _MyAppState extends State<MyApp> {
   void showVideoPicker() async {
     List<File> videos = await InsImagesPicker.showPicker(
         maxImages: 1,
-        mediaType: 1,
+        screenType: 3,
         ratios: ['1:1', '3:4', '16:9'],
         appName: "Influencer",
         navigationBarColor: Colors.blue,
@@ -56,7 +102,7 @@ class _MyAppState extends State<MyApp> {
         backgroundColor: Colors.grey,
         statusBarStyleValue: 1,
         quality: 0.8,
-        videoQuality: 'AVAssetExportPreset1920x1080',
+        videoQuality: 'AVAssetExportPreset1280x720',
         trimVideo: true);
     if (videos != null && videos.isNotEmpty) {
       videos.forEach((element) {
@@ -83,8 +129,24 @@ class _MyAppState extends State<MyApp> {
           child: Column(
         children: [
           MaterialButton(
+            onPressed: showPhotoCamera,
+            child: Text("TAKE PHOTO",
+                style: TextStyle(
+                  color: Colors.white,
+                )),
+            color: Colors.red,
+          ),
+          MaterialButton(
+            onPressed: showVideoCamera,
+            child: Text("RECORD A VIDEO",
+                style: TextStyle(
+                  color: Colors.white,
+                )),
+            color: Colors.red,
+          ),
+          MaterialButton(
             onPressed: showImagePicker,
-            child: Text("IMAGE",
+            child: Text("IMPORT IMAGE",
                 style: TextStyle(
                   color: Colors.white,
                 )),
@@ -92,11 +154,11 @@ class _MyAppState extends State<MyApp> {
           ),
           MaterialButton(
             onPressed: showVideoPicker,
-            child: Text("VIDEO",
+            child: Text("IMPORT VIDEO",
                 style: TextStyle(
                   color: Colors.white,
                 )),
-            color: Colors.red,
+            color: Colors.blue,
           ),
           ListView.builder(
               itemCount: _images?.length,

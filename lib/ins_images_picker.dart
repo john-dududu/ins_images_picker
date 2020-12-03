@@ -13,7 +13,7 @@ class InsImagesPicker {
 
   static Future<List<File>> showPicker({
     @required int maxImages,
-    @required int mediaType,
+    @required int screenType,
     @required List<String> ratios,
     @required String appName,
     @required Color navigationBarColor,
@@ -29,7 +29,7 @@ class InsImagesPicker {
       final List<dynamic> images = await _channel.invokeMethod(
           'pickerImages', <String, dynamic>{
         "maxImages": maxImages,
-        "mediaType": mediaType,
+        "screenType": screenType,
         "ratios": ratios,
         "appName": appName,
         "showTrim": trimVideo,
