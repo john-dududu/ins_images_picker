@@ -38,7 +38,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CTYPImagePicker:
-    :commit: 042004ceab7a9b65af8d381ec23ba7f5000a0c15
+    :commit: 8ebdc6ee4c0028ef9c3f31aaed039ef0e2a9eac4
     :git: https://github.com/CarnegieTechnologies/YPImagePicker.git
 
 SPEC CHECKSUMS:
@@ -52,4 +52,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 83a797363fbf9357f1f3e88970521e4318da06f2
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.9.3

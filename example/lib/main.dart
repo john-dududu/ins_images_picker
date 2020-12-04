@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
         navigationBarColor: Colors.blue,
         navigationBarItemColor: Colors.white,
         backgroundColor: Colors.grey,
-        statusBarStyleValue: 1,
+        statusBarStyleValue: 0,
         quality: 0.8,
         videoQuality: 'AVAssetExportPreset1280x720',
         trimVideo: false);
@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
         navigationBarColor: Colors.blue,
         navigationBarItemColor: Colors.white,
         backgroundColor: Colors.grey,
-        statusBarStyleValue: 1,
+        statusBarStyleValue: 0,
         quality: 0.8,
         videoQuality: 'AVAssetExportPreset1280x720',
         trimVideo: true);
@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
         navigationBarColor: Colors.blue,
         navigationBarItemColor: Colors.white,
         backgroundColor: Colors.grey,
-        statusBarStyleValue: 1,
+        statusBarStyleValue: 0,
         quality: 0.8,
         videoQuality: 'AVAssetExportPreset1280x720',
         trimVideo: false);
@@ -100,7 +100,7 @@ class _MyAppState extends State<MyApp> {
         navigationBarColor: Colors.blue,
         navigationBarItemColor: Colors.white,
         backgroundColor: Colors.grey,
-        statusBarStyleValue: 1,
+        statusBarStyleValue: 0,
         quality: 0.8,
         videoQuality: 'AVAssetExportPreset1280x720',
         trimVideo: true);
