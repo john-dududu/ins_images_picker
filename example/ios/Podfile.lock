@@ -14,7 +14,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - CTYPImagePicker (from `/Users/Marko/Documents/Projects/YPImagePicker`)
+  - CTYPImagePicker (from `https://github.com/CarnegieTechnologies/YPImagePicker.git`, branch `OIPI-2966`)
   - Flutter (from `Flutter`)
   - ins_images_picker (from `.symlinks/plugins/ins_images_picker/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
@@ -27,13 +27,19 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   CTYPImagePicker:
-    :path: "/Users/Marko/Documents/Projects/YPImagePicker"
+    :branch: OIPI-2966
+    :git: https://github.com/CarnegieTechnologies/YPImagePicker.git
   Flutter:
     :path: Flutter
   ins_images_picker:
     :path: ".symlinks/plugins/ins_images_picker/ios"
   video_player:
     :path: ".symlinks/plugins/video_player/ios"
+
+CHECKOUT OPTIONS:
+  CTYPImagePicker:
+    :commit: 042004ceab7a9b65af8d381ec23ba7f5000a0c15
+    :git: https://github.com/CarnegieTechnologies/YPImagePicker.git
 
 SPEC CHECKSUMS:
   CTYPImagePicker: ff2cc170b6b075df815e76bdb97886a2e472927a
@@ -44,6 +50,6 @@ SPEC CHECKSUMS:
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
 
-PODFILE CHECKSUM: de8363aaa6d1fa8bc4f7d87b32d8ca99fdcd9002
+PODFILE CHECKSUM: 83a797363fbf9357f1f3e88970521e4318da06f2
 
 COCOAPODS: 1.10.0

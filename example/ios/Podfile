@@ -31,7 +31,7 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
   
-  pod 'CTYPImagePicker', :path => '/Users/Marko/Documents/Projects/YPImagePicker'
+  pod 'CTYPImagePicker', :git => 'https://github.com/CarnegieTechnologies/YPImagePicker.git', :branch => 'OIPI-2966'
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
 end
