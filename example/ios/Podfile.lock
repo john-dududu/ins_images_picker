@@ -4,7 +4,7 @@ PODS:
     - PryntTrimmerView (~> 4.0.2)
     - SteviaLayout (~> 4.7.3)
   - Flutter (1.0.0)
-  - ins_images_picker (0.0.4):
+  - ins_images_picker (0.0.5):
     - CTYPImagePicker (~> 4.5.0)
     - Flutter
   - Mantis (1.4.7)
@@ -38,13 +38,13 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CTYPImagePicker:
-    :commit: 8ebdc6ee4c0028ef9c3f31aaed039ef0e2a9eac4
+    :commit: 1451a3ee864d4471fcf7f957513d5a2e5fbde54b
     :git: https://github.com/CarnegieTechnologies/YPImagePicker.git
 
 SPEC CHECKSUMS:
   CTYPImagePicker: ff2cc170b6b075df815e76bdb97886a2e472927a
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  ins_images_picker: e0dca07038cd52b4d54b242bab90f7fedeb9caf0
+  ins_images_picker: 209e9049effbd32f6c4c0fc771fade48bd2b39d2
   Mantis: 9cdf60d973503125bc140558b29c2cf7d0ecebe5
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
