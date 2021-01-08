@@ -13,13 +13,15 @@ class InsImagesPicker {
 
   static Future<List<File>> showPicker({
     @required int maxImages,
-    @required int mediaType,
+    @required int screenType,
     @required List<String> ratios,
     @required String appName,
     @required Color navigationBarColor,
     @required Color navigationBarItemColor,
+    @required Color backgroundColor,
     @required int statusBarStyleValue,
     double quality = 1.0,
+    String videoQuality = 'AVAssetExportPreset1280x720',
     bool trimVideo = false,
     double maxVideoDurationSeconds = 1800,
   }) async {
@@ -27,14 +29,16 @@ class InsImagesPicker {
       final List<dynamic> images = await _channel.invokeMethod(
           'pickerImages', <String, dynamic>{
         "maxImages": maxImages,
-        "mediaType": mediaType,
+        "screenType": screenType,
         "ratios": ratios,
         "appName": appName,
         "showTrim": trimVideo,
         "navigationBarColor": '#${navigationBarColor.value.toRadixString(16)}',
         "navigationBarItemColor": '#${navigationBarItemColor.value.toRadixString(16)}',
+        "backgroundColor": '#${backgroundColor.value.toRadixString(16)}',
         "statusBarStyleValue": statusBarStyleValue,
         "quality": quality,
+        "videoQuality": videoQuality,
         "maxVideoDurationSeconds": maxVideoDurationSeconds
       });
       return images.map((f) {

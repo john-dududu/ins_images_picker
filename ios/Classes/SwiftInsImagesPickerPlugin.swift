@@ -5,6 +5,13 @@ import UIKit
 import CTYPImagePicker
 
 public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
+    
+    private enum ScreenType: Int {
+        case takePhoto = 0
+        case takeVideo
+        case photoLibrary
+        case videoLibrary
+    }
 
     var picker: YPImagePicker?
     private  var images: [UIImage] = []
@@ -20,40 +27,65 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         imagesResult = result
         if (call.method == "pickerImages"), let arguments = call.arguments as? Dictionary<String, AnyObject> {
-            guard let mediaType = arguments["mediaType"] as? Int, let maxNumberOfItems = arguments["maxImages"] as? Int,
+            guard let screenTypeRawValue = arguments["screenType"] as? Int,
+                  let screenType = ScreenType(rawValue: screenTypeRawValue),
+                  let maxNumberOfItems = arguments["maxImages"] as? Int,
                   let ratioValues = arguments["ratios"] as? [String], let appName = arguments["appName"] as? String,
                   let navigationBarColorHexValue = arguments["navigationBarColor"] as? String,
                   let navigationBarItemColorHexValue = arguments["navigationBarItemColor"] as? String,
+                  let backgroundColorHexValue = arguments["backgroundColor"] as? String,
                   let statusBarStyleValue = arguments["statusBarStyleValue"] as? Int,
                   let showTrim = arguments["showTrim"] as? Bool,
                   let quality = arguments["quality"] as? Double,
+                  let videoQuality = arguments["videoQuality"] as? String,
                   let videoMaxDuration = arguments["maxVideoDurationSeconds"] as? Double else { return }
             images = []
             videos = []
             var config = YPImagePickerConfiguration()
-            config.library.maxNumberOfItems = maxNumberOfItems
-            config.showsPhotoFilters = false
+            // Status bar config
             config.hidesStatusBar = false
+            config.preferredStatusBarStyle = UIStatusBarStyle(statusBarStyleValue: statusBarStyleValue)
+            // Colors config
             config.colors.barTintColor = UIColor(hexString: navigationBarColorHexValue)
             config.colors.tintColor = UIColor(hexString: navigationBarItemColorHexValue)
-            config.preferredStatusBarStyle = UIStatusBarStyle(statusBarStyleValue: statusBarStyleValue)
-            if(mediaType == 0) {
-                config.screens = [.library]
-                config.showsPhotoFilters = true
-                config.showsCrop = .rectangle(ratios: ratioValues.compactMap{Ratio(rawValue: $0)})
-                config.library.mediaType = .photo
-            } else {
-                config.screens = [.library]
+            config.colors.photoVideoScreenBackgroundColor = UIColor(hexString: backgroundColorHexValue)
+            config.colors.libraryScreenBackgroundColor = UIColor(hexString: backgroundColorHexValue)
+            config.colors.safeAreaBackgroundColor = UIColor(hexString: backgroundColorHexValue)
+            config.colors.assetViewBackgroundColor = UIColor(hexString: backgroundColorHexValue)
+            config.colors.filterBackgroundColor = UIColor(hexString: backgroundColorHexValue)
+            config.colors.selectionsBackgroundColor = UIColor(hexString: backgroundColorHexValue)
+            
+            switch screenType {
+            case .takePhoto, .photoLibrary:
+                if screenType == .photoLibrary {
+                    config.screens = [.library]
+                    config.library.mediaType = .photo
+                    config.library.maxNumberOfItems = maxNumberOfItems
+                    config.library.isSquareByDefault = false
+                } else {
+                    config.screens = [.photo]
+                    config.onlySquareImagesFromCamera = false
+                    config.maxCameraZoomFactor = 3.0
+                }
+                config.showsCrop = .rectangle(ratios: ratioValues.compactMap{MantisRatio(ratioStringValue: $0)})
+                config.albumName = "\(appName) Images"
+            case .takeVideo, .videoLibrary:
+                if screenType == .videoLibrary {
+                    config.screens = [.library]
+                    config.library.mediaType = .video
+                    config.library.maxNumberOfItems = maxNumberOfItems
+                    config.video.libraryTimeLimit = videoMaxDuration
+                    config.library.isSquareByDefault = false
+                } else {
+                    config.screens = [.video]
+                    config.onlySquareImagesFromCamera = false
+                    config.maxCameraZoomFactor = 3.0
+                    config.video.recordingTimeLimit = videoMaxDuration
+                }
                 config.showsVideoTrimmer = showTrim
-                config.library.mediaType = .video
-                config.video.libraryTimeLimit = videoMaxDuration
-
-                config.video.compression = AVAssetExportPreset1280x720
-
+                config.video.compression = videoQuality
             }
-            config.startOnScreen = .library
-            config.library.isSquareByDefault = false
-            config.albumName = "\(appName) Images"
+            
             picker = YPImagePicker(configuration: config)
 
             picker!.didFinishPicking { [weak self] items, cancelled in
@@ -74,6 +106,7 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
 
                             results.append([
                                 "path": video.url.path,
+                                "thumbnailPath": self.saveToFile(image: video.thumbnail, quality: CGFloat(quality))
                             ]);
                             break
                         }

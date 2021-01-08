@@ -1,45 +1,55 @@
 PODS:
+  - CTYPImagePicker (4.5.1):
+    - Mantis (~> 1.4.7)
+    - PryntTrimmerView (~> 4.0.2)
+    - SteviaLayout (~> 4.7.3)
   - Flutter (1.0.0)
-  - ins_images_picker (0.0.2):
+  - ins_images_picker (0.0.5):
+    - CTYPImagePicker (~> 4.5.0)
     - Flutter
-    - YPImagePicker
+  - Mantis (1.4.7)
   - PryntTrimmerView (4.0.2)
   - SteviaLayout (4.7.3)
   - video_player (0.0.1):
     - Flutter
-  - YPImagePicker (4.4.0):
-    - PryntTrimmerView (~> 4.0.2)
-    - SteviaLayout (~> 4.7.3)
 
 DEPENDENCIES:
+  - CTYPImagePicker (from `https://github.com/CarnegieTechnologies/YPImagePicker.git`, branch `OIPI-2966`)
   - Flutter (from `Flutter`)
   - ins_images_picker (from `.symlinks/plugins/ins_images_picker/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
-  - YPImagePicker (from `/Users/Marko/Documents/Projects/YPImagePicker`)
 
 SPEC REPOS:
   trunk:
+    - Mantis
     - PryntTrimmerView
     - SteviaLayout
 
 EXTERNAL SOURCES:
+  CTYPImagePicker:
+    :branch: OIPI-2966
+    :git: https://github.com/CarnegieTechnologies/YPImagePicker.git
   Flutter:
     :path: Flutter
   ins_images_picker:
     :path: ".symlinks/plugins/ins_images_picker/ios"
   video_player:
     :path: ".symlinks/plugins/video_player/ios"
-  YPImagePicker:
-    :path: "/Users/Marko/Documents/Projects/YPImagePicker"
+
+CHECKOUT OPTIONS:
+  CTYPImagePicker:
+    :commit: 1451a3ee864d4471fcf7f957513d5a2e5fbde54b
+    :git: https://github.com/CarnegieTechnologies/YPImagePicker.git
 
 SPEC CHECKSUMS:
+  CTYPImagePicker: ff2cc170b6b075df815e76bdb97886a2e472927a
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  ins_images_picker: 117174d11cb49825886e85684a3bc5a136ee3f53
+  ins_images_picker: 209e9049effbd32f6c4c0fc771fade48bd2b39d2
+  Mantis: 9cdf60d973503125bc140558b29c2cf7d0ecebe5
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
-  YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
 
-PODFILE CHECKSUM: cf4d5fca2d1810c6ec437c0d91de8545cd54b6a4
+PODFILE CHECKSUM: 83a797363fbf9357f1f3e88970521e4318da06f2
 
 COCOAPODS: 1.9.3
