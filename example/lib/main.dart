@@ -24,17 +24,18 @@ class _MyAppState extends State<MyApp> {
 
   void showPhotoCamera() async {
     List<File> images = await InsImagesPicker.showPicker(
-        maxImages: 1,
         screenType: 0,
-        ratios: ['1:1', '3:4', '16:9'],
+        maxImages: 1,
         appName: "Influencer",
         navigationBarColor: Colors.blue,
         navigationBarItemColor: Colors.white,
         backgroundColor: Colors.grey,
         statusBarStyleValue: 0,
-        quality: 0.8,
-        videoQuality: 'AVAssetExportPreset1280x720',
-        trimVideo: false);
+        compressionQuality: 0.8,
+        showCrop: true,
+        ratios: ['1:1', '3:4', '16:9'],
+        enableCropRotation: true
+        );
     if (images != null && images.isNotEmpty) {
       images.forEach((element) {
         _images.add(element);
@@ -46,41 +47,43 @@ class _MyAppState extends State<MyApp> {
   }
 
   void showVideoCamera() async {
-    List<File> images = await InsImagesPicker.showPicker(
-        maxImages: 1,
+    List<File> videos = await InsImagesPicker.showPicker(
         screenType: 1,
-        ratios: ['1:1', '3:4', '16:9'],
+        maxImages: 1,
         appName: "Influencer",
         navigationBarColor: Colors.blue,
         navigationBarItemColor: Colors.white,
         backgroundColor: Colors.grey,
         statusBarStyleValue: 0,
-        quality: 0.8,
+        compressionQuality: 0.8,
+        showTrimVideo: true,
         videoQuality: 'AVAssetExportPreset1280x720',
-        trimVideo: true);
-    if (images != null && images.isNotEmpty) {
-      images.forEach((element) {
-        _images.add(element);
+        maxVideoDurationSeconds: 1200
+        );
+    if (videos != null && videos.isNotEmpty) {
+      videos.forEach((element) {
+        _videos.add(element);
       });
       setState(() {});
     } else {
-      print(images);
+      print(videos);
     }
   }
 
   void showImagePicker() async {
     List<File> images = await InsImagesPicker.showPicker(
-        maxImages: 1,
         screenType: 2,
-        ratios: ['1:1', '3:4', '16:9'],
+        maxImages: 1,
         appName: "Influencer",
         navigationBarColor: Colors.blue,
         navigationBarItemColor: Colors.white,
         backgroundColor: Colors.grey,
         statusBarStyleValue: 0,
-        quality: 0.8,
-        videoQuality: 'AVAssetExportPreset1280x720',
-        trimVideo: false);
+        compressionQuality: 0.8,
+        showCrop: true,
+        ratios: ['1:1', '3:4', '16:9'],
+        enableCropRotation: true
+        );
     if (images != null && images.isNotEmpty) {
       images.forEach((element) {
         _images.add(element);
@@ -93,17 +96,18 @@ class _MyAppState extends State<MyApp> {
 
   void showVideoPicker() async {
     List<File> videos = await InsImagesPicker.showPicker(
-        maxImages: 1,
         screenType: 3,
-        ratios: ['1:1', '3:4', '16:9'],
+        maxImages: 1,
         appName: "Influencer",
         navigationBarColor: Colors.blue,
         navigationBarItemColor: Colors.white,
         backgroundColor: Colors.grey,
         statusBarStyleValue: 0,
-        quality: 0.8,
+        compressionQuality: 0.8,
+        showTrimVideo: true,
         videoQuality: 'AVAssetExportPreset1280x720',
-        trimVideo: true);
+        maxVideoDurationSeconds: 1200
+        );
     if (videos != null && videos.isNotEmpty) {
       videos.forEach((element) {
         _videos.add(element);

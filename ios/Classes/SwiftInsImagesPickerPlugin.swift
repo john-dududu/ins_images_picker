@@ -30,15 +30,13 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
             guard let screenTypeRawValue = arguments["screenType"] as? Int,
                   let screenType = ScreenType(rawValue: screenTypeRawValue),
                   let maxNumberOfItems = arguments["maxImages"] as? Int,
-                  let ratioValues = arguments["ratios"] as? [String], let appName = arguments["appName"] as? String,
+                  let appName = arguments["appName"] as? String,
                   let navigationBarColorHexValue = arguments["navigationBarColor"] as? String,
                   let navigationBarItemColorHexValue = arguments["navigationBarItemColor"] as? String,
                   let backgroundColorHexValue = arguments["backgroundColor"] as? String,
                   let statusBarStyleValue = arguments["statusBarStyleValue"] as? Int,
-                  let showTrim = arguments["showTrim"] as? Bool,
-                  let quality = arguments["quality"] as? Double,
-                  let videoQuality = arguments["videoQuality"] as? String,
-                  let videoMaxDuration = arguments["maxVideoDurationSeconds"] as? Double else { return }
+                  let compressionQuality = arguments["compressionQuality"] as? Double else { return }
+            
             images = []
             videos = []
             var config = YPImagePickerConfiguration()
@@ -57,6 +55,7 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
             
             switch screenType {
             case .takePhoto, .photoLibrary:
+                config.albumName = "\(appName) Images"
                 if screenType == .photoLibrary {
                     config.screens = [.library]
                     config.library.mediaType = .photo
@@ -67,9 +66,18 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
                     config.onlySquareImagesFromCamera = false
                     config.maxCameraZoomFactor = 3.0
                 }
-                config.showsCrop = .rectangle(ratios: ratioValues.compactMap{MantisRatio(ratioStringValue: $0)})
-                config.albumName = "\(appName) Images"
+                if let showCrop = arguments["showCrop"] as? Bool, showCrop,
+                   let ratioValues = arguments["ratios"] as? [String],
+                   let enableCropRotation = arguments["enableCropRotation"] as? Bool {
+                    config.showsCrop = .rectangle(ratios: ratioValues.compactMap{MantisRatio(ratioStringValue: $0)})
+                    config.enableCropRotation = enableCropRotation
+                } else {
+                    config.showsCrop = .none
+                }
             case .takeVideo, .videoLibrary:
+                guard let showTrim = arguments["showTrim"] as? Bool,
+                      let videoQuality = arguments["videoQuality"] as? String,
+                      let videoMaxDuration = arguments["maxVideoDurationSeconds"] as? Double else { return }
                 if screenType == .videoLibrary {
                     config.screens = [.library]
                     config.library.mediaType = .video
@@ -106,7 +114,7 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
 
                             results.append([
                                 "path": video.url.path,
-                                "thumbnailPath": self.saveToFile(image: video.thumbnail, quality: CGFloat(quality))
+                                "thumbnailPath": self.saveToFile(image: video.thumbnail, quality: CGFloat(compressionQuality))
                             ]);
                             break
                         }
@@ -115,7 +123,7 @@ public class SwiftInsImagesPickerPlugin: NSObject, FlutterPlugin {
 
                 for image in self.images {
                     results.append([
-                        "path": self.saveToFile(image: image, quality: CGFloat(quality)),
+                        "path": self.saveToFile(image: image, quality: CGFloat(compressionQuality)),
                     ]);
                 }
                 
