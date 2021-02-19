@@ -1,6 +1,6 @@
 name: ins_images_picker
 description: A new flutter plugin project.
-version: 0.0.14
+version: 0.1.0
 homepage: https://github.com/john-dududu/ins_images_picker
 
 environment:

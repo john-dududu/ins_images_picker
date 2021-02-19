@@ -1,20 +1,20 @@
 PODS:
-  - CTYPImagePicker (4.5.1):
-    - Mantis (~> 1.4.7)
+  - CTYPImagePicker (4.6.1):
+    - Mantis (~> 1.4.10)
     - PryntTrimmerView (~> 4.0.2)
     - SteviaLayout (~> 4.7.3)
   - Flutter (1.0.0)
-  - ins_images_picker (0.0.5):
-    - CTYPImagePicker (~> 4.5.0)
+  - ins_images_picker (0.1.0):
+    - CTYPImagePicker (~> 4.6.1)
     - Flutter
-  - Mantis (1.4.7)
+  - Mantis (1.4.10)
   - PryntTrimmerView (4.0.2)
   - SteviaLayout (4.7.3)
   - video_player (0.0.1):
     - Flutter
 
 DEPENDENCIES:
-  - CTYPImagePicker (from `https://github.com/CarnegieTechnologies/YPImagePicker.git`, branch `OIPI-2966`)
+  - CTYPImagePicker (from `https://github.com/CarnegieTechnologies/YPImagePicker.git`, branch `CWF-972`)
   - Flutter (from `Flutter`)
   - ins_images_picker (from `.symlinks/plugins/ins_images_picker/ios`)
   - video_player (from `.symlinks/plugins/video_player/ios`)
@@ -27,7 +27,7 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   CTYPImagePicker:
-    :branch: OIPI-2966
+    :branch: CWF-972
     :git: https://github.com/CarnegieTechnologies/YPImagePicker.git
   Flutter:
     :path: Flutter
@@ -38,18 +38,18 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CTYPImagePicker:
-    :commit: 1451a3ee864d4471fcf7f957513d5a2e5fbde54b
+    :commit: 62e590650409f1be2bc1714da9bbbc83dbd88de5
     :git: https://github.com/CarnegieTechnologies/YPImagePicker.git
 
 SPEC CHECKSUMS:
-  CTYPImagePicker: ff2cc170b6b075df815e76bdb97886a2e472927a
+  CTYPImagePicker: 4ac3791e14545639f95fd8fd633201d85be5d053
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  ins_images_picker: 209e9049effbd32f6c4c0fc771fade48bd2b39d2
-  Mantis: 9cdf60d973503125bc140558b29c2cf7d0ecebe5
+  ins_images_picker: 910aa828aaa9301b5cf8f09161d5373d71b9f0a4
+  Mantis: 97798dad3b6767cae3daa7c5d6df9b3c36dbf9d9
   PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
   SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   video_player: 9cc823b1d9da7e8427ee591e8438bfbcde500e6e
 
-PODFILE CHECKSUM: 83a797363fbf9357f1f3e88970521e4318da06f2
+PODFILE CHECKSUM: 77929f0701f5b72c6da4a5b47c3049d2d67d213d
 
 COCOAPODS: 1.9.3
