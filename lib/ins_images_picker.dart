@@ -8,8 +8,10 @@ class InsImagesPicker {
   static const MethodChannel _channel =
       const MethodChannel('ins_images_picker');
 
-  static const int image = 0;
+  static const int camera = 0;
   static const int video = 1;
+  static const int galleryImage = 2;
+  static const int galleryVideo = 3;
 
   static Future<List<File>> showPicker({
     @required int screenType,
