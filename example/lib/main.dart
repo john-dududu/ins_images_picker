@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void showPhotoCamera() async {
-    List<File> images = await InsImagesPicker.showPicker(
+    List<File> images = await InsImagesPicker.showIOSPicker(
         screenType: 0,
         maxImages: 1,
         appName: "Influencer",
@@ -34,8 +34,7 @@ class _MyAppState extends State<MyApp> {
         compressionQuality: 0.8,
         showCrop: true,
         ratios: ['1:1', '3:4', '16:9'],
-        enableCropRotation: true
-        );
+        enableCropRotation: true);
     if (images != null && images.isNotEmpty) {
       images.forEach((element) {
         _images.add(element);
@@ -47,7 +46,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void showVideoCamera() async {
-    List<File> videos = await InsImagesPicker.showPicker(
+    List<File> videos = await InsImagesPicker.showIOSPicker(
         screenType: 1,
         maxImages: 1,
         appName: "Influencer",
@@ -58,8 +57,7 @@ class _MyAppState extends State<MyApp> {
         compressionQuality: 0.8,
         showTrimVideo: true,
         videoQuality: 'AVAssetExportPreset1280x720',
-        maxVideoDurationSeconds: 1200
-        );
+        maxVideoDurationSeconds: 1200);
     if (videos != null && videos.isNotEmpty) {
       videos.forEach((element) {
         _videos.add(element);
@@ -71,7 +69,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void showImagePicker() async {
-    List<File> images = await InsImagesPicker.showPicker(
+    List<File> images = await InsImagesPicker.showIOSPicker(
         screenType: 2,
         maxImages: 1,
         appName: "Influencer",
@@ -82,8 +80,7 @@ class _MyAppState extends State<MyApp> {
         compressionQuality: 0.8,
         showCrop: true,
         ratios: ['1:1', '3:4', '16:9'],
-        enableCropRotation: true
-        );
+        enableCropRotation: true);
     if (images != null && images.isNotEmpty) {
       images.forEach((element) {
         _images.add(element);
@@ -95,7 +92,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void showVideoPicker() async {
-    List<File> videos = await InsImagesPicker.showPicker(
+    List<File> videos = await InsImagesPicker.showIOSPicker(
         screenType: 3,
         maxImages: 1,
         appName: "Influencer",
@@ -106,8 +103,7 @@ class _MyAppState extends State<MyApp> {
         compressionQuality: 0.8,
         showTrimVideo: true,
         videoQuality: 'AVAssetExportPreset1280x720',
-        maxVideoDurationSeconds: 1200
-        );
+        maxVideoDurationSeconds: 1200);
     if (videos != null && videos.isNotEmpty) {
       videos.forEach((element) {
         _videos.add(element);
@@ -115,6 +111,19 @@ class _MyAppState extends State<MyApp> {
       setState(() {});
     } else {
       print(_videos);
+    }
+  }
+
+  void showAndroidMediaPicker(int type) async {
+    List<File> images = await InsImagesPicker.showAndroidPicker(
+        maxImages: 1, showCrop: true, enableCropRotation: true);
+    if (images != null && images.isNotEmpty) {
+      images.forEach((element) {
+        _images.add(element);
+      });
+      setState(() {});
+    } else {
+      print(images);
     }
   }
 
@@ -132,6 +141,36 @@ class _MyAppState extends State<MyApp> {
       body: Container(
           child: Column(
         children: [
+          MaterialButton(
+            onPressed: () {
+              showAndroidMediaPicker(0);
+            },
+            child: Text("Android ALL Media",
+                style: TextStyle(
+                  color: Colors.white,
+                )),
+            color: Colors.red,
+          ),
+          MaterialButton(
+            onPressed: () {
+              showAndroidMediaPicker(1);
+            },
+            child: Text("Android Image",
+                style: TextStyle(
+                  color: Colors.white,
+                )),
+            color: Colors.red,
+          ),
+          MaterialButton(
+            onPressed: () {
+              showAndroidMediaPicker(2);
+            },
+            child: Text("Android Video",
+                style: TextStyle(
+                  color: Colors.white,
+                )),
+            color: Colors.red,
+          ),
           MaterialButton(
             onPressed: showPhotoCamera,
             child: Text("TAKE PHOTO",
