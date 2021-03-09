@@ -1,4 +1,4 @@
-include ':app', ':ins_gallery_picker'
+include ':app', ':ucrop', ':picture_library'
 
 def localPropertiesFile = new File(rootProject.projectDir, "local.properties")
 def properties = new Properties()

@@ -6,6 +6,7 @@ import androidx.annotation.NonNull
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
+import com.luck.picture.lib.config.PictureSelectionConfig.imageEngine
 import com.luck.picture.lib.entity.LocalMedia
 import com.luck.picture.lib.instagram.InsGallery
 import com.luck.picture.lib.listener.OnResultCallbackListener
@@ -54,7 +55,7 @@ public class InsImagesPickerPlugin : FlutterPlugin, MethodCallHandler, OnResultC
             }
             "pickerImages" -> {
                 InsGallery.applyInstagramOptions(activity!!.applicationContext, PictureSelector.create(activity)
-                        .openGallery(getType(call.argument<Int>("type")!!)))
+                        .openGallery(1))
                         .imageEngine(GlideEngine.createGlideEngine()).hideBottomControls(false).rotateEnabled(true).maxVideoSelectNum(0)
                         .isCamera(false).isCameraAroundState(false)
                         .selectionMode(PictureConfig.SINGLE).isEnableCrop(call.argument<Boolean>("showCrop")!!)
@@ -113,7 +114,7 @@ public class InsImagesPickerPlugin : FlutterPlugin, MethodCallHandler, OnResultC
     }
 
     override fun onCancel() {
-        TODO("Not yet implemented")
+     print("onCancel")
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
@@ -121,14 +122,15 @@ public class InsImagesPickerPlugin : FlutterPlugin, MethodCallHandler, OnResultC
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
-        TODO("Not yet implemented")
+        print("onDetachedFromActivityForConfigChanges")
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
-        TODO("Not yet implemented")
+        print("onReattachedToActivityForConfigChanges")
     }
 
     override fun onDetachedFromActivity() {
-        TODO("Not yet implemented")
+        print("onDetachedFromActivity")
     }
+
 }

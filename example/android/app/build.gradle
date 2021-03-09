@@ -24,6 +24,7 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'maven'
 
 android {
     compileSdkVersion 28
@@ -60,11 +61,13 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.github.bumptech.glide:glide:4.11.0"
-//    implementation 'me.jessyan:insgallery:0.7.0'
     implementation "androidx.camera:camera-view:1.0.0-alpha22"
     implementation "androidx.camera:camera-lifecycle:1.1.0-alpha02"
     implementation "androidx.camera:camera-camera2:1.1.0-alpha02"
-    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+    implementation project(path: ':picture_library')
+//    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
+//    implementation "com.carnegietechnologies.flutter:instagramGallery:1.0.1"
+
 
 
 
